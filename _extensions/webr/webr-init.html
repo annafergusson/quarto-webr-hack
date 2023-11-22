@@ -113,7 +113,9 @@
   const initializeWebRTimerStart = performance.now();
 
   // Determine if we need to install R packages
+  var requiredHackPackages = ['knitr', 'htmltools', 'rvest', 'stringr', 'base64enc', 'glue'];
   var installRPackagesList = [{{INSTALLRPACKAGESLIST}}];
+  installRPackagesList  = requiredHackPackages.concat(installRPackagesList);
   // Check to see if we have an empty array, if we do set to skip the installation.
   var setupRPackages = !(installRPackagesList.indexOf("") !== -1);
   var autoloadRPackages = {{AUTOLOADRPACKAGES}};
