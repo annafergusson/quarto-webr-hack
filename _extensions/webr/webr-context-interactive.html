@@ -66,7 +66,9 @@
         executeCode(editor.getValue());
       });
 
+      // remove for now, since my hack doesn't work on a one line basis
       // Add a keydown event listener for CMD/Ctrl+Enter to run selected code
+      /*
       editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
 
         // Get the selected text from the editor
@@ -101,6 +103,7 @@
           executeCode(selectedText);
         }
       });
+      */
     }
 
     // Register an on focus event handler for when a code cell is selected to update
