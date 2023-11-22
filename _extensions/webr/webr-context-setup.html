@@ -7,3 +7,41 @@ await globalThis.webR.evalRVoid(`
 {{WEBRCODE}}
 `)
 </script>	
+
+<script type="module">
+//hack1
+// Initialization WebR
+await globalThis.webR.init();
+
+// Run R code without focusing on storing data.
+await globalThis.webR.evalRVoid(`
+dashboard <- function(text){
+  writeLines(text, con="input.Rhtml")
+  knit("input.Rhtml", quiet = TRUE)
+  html_content <- read_html("input.html")
+  
+  image_urls <- html_content %>%
+    html_elements("img") %>%
+    html_attr("src") %>%
+    str_remove_all("\\\\.\\\\/")
+  
+  data_urls <- lapply(image_urls, function(url) {
+    img_data <- readBin(url, "raw", n = file.info(url)$size)
+    base64_data <- base64encode(img_data)
+    data_url <- paste0("data:image/png;base64,", base64_data)
+    return(data_url)
+  })
+  
+  html_content <- as.character(html_content)
+  for(i in 1 : length(image_urls)){
+    html_content <- str_replace_all(html_content, 
+                                    paste0("src=\\"", image_urls[i], "\\""),
+                                    paste0("src=\\"", data_urls[i], "\\""))
+  }
+  
+  writeLines(as.character(html_content), con="output.html")
+  cat(readLines("output.html"), sep = "\\n")
+  invisible()
+}
+`)
+</script>
