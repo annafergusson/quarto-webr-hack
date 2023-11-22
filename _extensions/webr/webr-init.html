@@ -116,7 +116,7 @@
   var installRPackagesList = ['knitr', 'htmltools', 'rvest', 'stringr', 'base64enc', 'glue'];
   var otherPackages = [{{INSTALLRPACKAGESLIST}}];
   if(!(installRPackagesList.indexOf("") !== -1)){
-    installRPackagesList = installRPackaagesList.concat(otherPackages);
+    installRPackagesList = installRPackagesList.concat(otherPackages);
   }
   // Check to see if we have an empty array, if we do set to skip the installation.
   var setupRPackages = !(installRPackagesList.indexOf("") !== -1);
