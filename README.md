@@ -1,1 +1,1 @@
-Just trying to hack the source code, to enable something close to rendering Rmd using webr, since that's not working ATM.
+Just using the quarto-webr extension to create a similar one using decode
